@@ -63,20 +63,22 @@ body {
 /* SNAP CONTAINER */
 .snap-container {
     height: 100vh;
-    overflow-y: scroll;
-    scroll-snap-type: y mandatory;
+    overflow-y: auto; /* Changé de scroll à auto pour un meilleur comportement */
+    scroll-snap-type: y proximity; /* 'proximity' est plus souple que 'mandatory' pour les contenus longs */
     scroll-behavior: smooth;
     visibility: hidden;
 }
 
 section {
-    height: 100vh;
+    min-height: 100vh; /* Permet l'extension si le contenu déborde */
+    height: auto;      /* Écrase le 100vh fixe */
     scroll-snap-align: start;
-    padding: 100px 40px;
+    padding: 120px 24px 60px 24px; /* Plus d'espace en haut/bas pour mobile */
     display: flex;
     flex-direction: column;
     justify-content: center;
     position: relative;
+    box-sizing: border-box;
 }
 
 /* MENU PLEIN ÉCRAN */
@@ -188,6 +190,17 @@ section {
 .active .reveal {
     opacity: 1;
     transform: translateY(0);
+}
+
+@media (min-width: 768px) {
+    section {
+        padding: 100px 10%;
+    }
+}
+
+/* Ajustement spécifique pour la section contact/footer */
+#contact {
+    justify-content: space-between; /* Pousse le footer vers le bas */
 }
 
 @media (min-width: 768px) {
